@@ -1,0 +1,10 @@
+torch
+torchvision
+pillow
+gradio
+transformers
+supervision
+timm
+onnx
+onnxsim
+segment_anything
