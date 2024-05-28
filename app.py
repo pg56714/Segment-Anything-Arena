@@ -26,10 +26,6 @@ BOX_EXAMPLES = [
     ["https://media.roboflow.com/efficient-sam/corgi.jpg", 801, 510, 1782, 993],
 ]
 
-POINT_EXAMPLES = [
-    ["https://media.roboflow.com/efficient-sam/corgi.jpg", 1291, 751],
-]
-
 PROMPT_COLOR = sv.Color.from_hex("#D3D3D3")
 MASK_COLOR = sv.Color.from_hex("#FF0000")
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -76,23 +72,19 @@ def annotate_image_with_box_prompt_result(
 def efficientvit_sam_box_inference(
     image: np.ndarray, x_min: int, y_min: int, x_max: int, y_max: int
 ) -> np.ndarray:
-    try:
-        box = np.array([[x_min, y_min, x_max, y_max]])
-        EFFICIENTVITSAM.set_image(image)
-        mask = EFFICIENTVITSAM.predict(box=box, multimask_output=False)
-        mask = mask[0]
-        detections = sv.Detections(xyxy=sv.mask_to_xyxy(masks=mask), mask=mask)
-        return annotate_image_with_box_prompt_result(
-            image=image,
-            detections=detections,
-            x_min=x_min,
-            y_min=y_min,
-            x_max=x_max,
-            y_max=y_max,
-        )
-    except Exception as e:
-        print(f"Error in efficientvit_sam_box_inference: {e}")
-        return image
+    box = np.array([[x_min, y_min, x_max, y_max]])
+    EFFICIENTVITSAM.set_image(image)
+    mask = EFFICIENTVITSAM.predict(box=box, multimask_output=False)
+    mask = mask[0]
+    detections = sv.Detections(xyxy=sv.mask_to_xyxy(masks=mask), mask=mask)
+    return annotate_image_with_box_prompt_result(
+        image=image,
+        detections=detections,
+        x_min=x_min,
+        y_min=y_min,
+        x_max=x_max,
+        y_max=y_max,
+    )
 
 
 def efficient_sam_box_inference(
