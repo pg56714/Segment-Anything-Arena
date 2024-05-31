@@ -175,7 +175,7 @@ with gr.Blocks() as demo:
         with gr.Row():
             submit_box_inference_button = gr.Button("Submit")
         gr.Examples(
-            fn=box_inference,
+            # fn=box_inference,
             examples=BOX_EXAMPLES,
             inputs=box_inputs,
             outputs=[
