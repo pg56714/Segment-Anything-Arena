@@ -22,7 +22,9 @@ MARKDOWN = """
 Paper source：
 [EfficientViT-SAM](https://arxiv.org/abs/2402.05008) and [EfficientSAM](https://arxiv.org/abs/2312.00863) and 
 [SAM](https://arxiv.org/abs/2304.02643)
-
+\n
+Github Source Code: [Link](https://github.com/pg56714/Segment-Anything-Arena)
+\n
 The SAM model takes one minute to run to completion, which slow down other models. Currently, EfficientViT-SAM and EfficientSAM are displayed first.
 The source code for all three models is available, but the SAM is commented out.
 """
