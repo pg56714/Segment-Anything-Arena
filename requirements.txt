@@ -1,0 +1,10 @@
+torch
+torchvision
+gradio==4.19.2 # The old version runs faster in comparison.
+transformers
+supervision
+timm
+onnx
+onnxsim
+onnxruntime
+segment_anything
