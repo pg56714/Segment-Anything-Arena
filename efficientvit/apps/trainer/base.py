@@ -141,7 +141,9 @@ class Trainer:
         network = network or self.network
         if data_loader is None:
             data_loader = []
-            for data in self.data_provider.build_sub_train_loader(subset_size, subset_batch_size):
+            for data in self.data_provider.build_sub_train_loader(
+                subset_size, subset_batch_size
+            ):
                 if isinstance(data, list):
                     data_loader.append(data[0])
                 elif isinstance(data, dict):
@@ -162,7 +164,9 @@ class Trainer:
     def _validate(self, model, data_loader, epoch) -> dict[str, any]:
         raise NotImplementedError
 
-    def validate(self, model=None, data_loader=None, is_test=True, epoch=0) -> dict[str, any]:
+    def validate(
+        self, model=None, data_loader=None, is_test=True, epoch=0
+    ) -> dict[str, any]:
         model = model or self.eval_network
         if data_loader is None:
             if is_test:
@@ -203,7 +207,9 @@ class Trainer:
 
     """ training """
 
-    def prep_for_training(self, run_config: RunConfig, ema_decay: float or None = None, amp="fp32") -> None:
+    def prep_for_training(
+        self, run_config: RunConfig, ema_decay: float or None = None, amp="fp32"
+    ) -> None:
         self.run_config = run_config
         self.model = nn.parallel.DistributedDataParallel(
             self.model.cuda(),
@@ -242,7 +248,11 @@ class Trainer:
         print("Sync model")
         self.save_model(model_name="sync.pt")
         dist_barrier()
-        checkpoint = torch.load(os.path.join(self.checkpoint_path, "sync.pt"), map_location="cpu")
+        checkpoint = torch.load(
+            os.path.join(self.checkpoint_path, "sync.pt"),
+            map_location="cpu",
+            weights_only=True,
+        )
         dist_barrier()
         if is_master():
             os.remove(os.path.join(self.checkpoint_path, "sync.pt"))
@@ -272,7 +282,9 @@ class Trainer:
         self.scaler.unscale_(self.optimizer)
         # gradient clip
         if self.run_config.grad_clip is not None:
-            torch.nn.utils.clip_grad_value_(self.model.parameters(), self.run_config.grad_clip)
+            torch.nn.utils.clip_grad_value_(
+                self.model.parameters(), self.run_config.grad_clip
+            )
         # update
         self.scaler.step(self.optimizer)
         self.scaler.update()

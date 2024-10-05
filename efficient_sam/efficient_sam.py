@@ -16,6 +16,7 @@ from .efficient_sam_decoder import MaskDecoder, PromptEncoder
 from .efficient_sam_encoder import ImageEncoderViT
 from .two_way_transformer import TwoWayAttentionBlock, TwoWayTransformer
 
+
 class EfficientSam(nn.Module):
     mask_threshold: float = 0.0
     image_format: str = "RGB"
@@ -80,7 +81,9 @@ class EfficientSam(nn.Module):
 
         batch_size, max_num_queries, num_pts, _ = batched_points.shape
         num_pts = batched_points.shape[2]
-        rescaled_batched_points = self.get_rescaled_pts(batched_points, input_h, input_w)
+        rescaled_batched_points = self.get_rescaled_pts(
+            batched_points, input_h, input_w
+        )
 
         if num_pts > self.decoder_max_num_input_points:
             rescaled_batched_points = rescaled_batched_points[
@@ -147,7 +150,9 @@ class EfficientSam(nn.Module):
         )
         return output_masks, iou_predictions
 
-    def get_rescaled_pts(self, batched_points: torch.Tensor, input_h: int, input_w: int):
+    def get_rescaled_pts(
+        self, batched_points: torch.Tensor, input_h: int, input_w: int
+    ):
         return torch.stack(
             [
                 torch.where(
@@ -300,6 +305,6 @@ def build_efficient_sam(encoder_patch_embed_dim, encoder_num_heads, checkpoint=N
     )
     if checkpoint is not None:
         with open(checkpoint, "rb") as f:
-            state_dict = torch.load(f, map_location="cpu")
+            state_dict = torch.load(f, map_location="cpu", weights_only=True)
         sam.load_state_dict(state_dict["model"])
     return sam
