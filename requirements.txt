@@ -1,6 +1,6 @@
 torch
 torchvision
-gradio==4.19.2 # The old version runs faster in comparison.
+gradio>=6.16 # 4.19.2 ran faster, but it has unpatched file read, SSRF and path traversal advisories.
 transformers
 supervision
 timm
