@@ -1,5 +1,7 @@
 # EfficientViT-SAM vs EfficientSAM vs SAM
 
+> **Security:** see [SECURITY.md](SECURITY.md) for known dependency issues.
+
 [HuggingFace Space](https://huggingface.co/spaces/pg56714/Segment-Anything-Arena)
 
 ## Getting Started
