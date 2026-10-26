@@ -9,7 +9,7 @@
 Use Anaconda to create a new environment and install the required packages.
 
 ```
-conda create -n samarena python=3.10 -y
+conda create -n samarena python=3.12 -y
 
 conda activate samarena
 
@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 | EfficientSAM-S                                                                                  | EfficientViT-SAM-XL1                                                            |
 | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| [Download](https://github.com/yformer/EfficientSAM/blob/main/weights/efficient_sam_vits.pt.zip) | [Download](https://huggingface.co/han-cai/efficientvit-sam/resolve/main/xl1.pt) |
+| [Download](https://github.com/yformer/EfficientSAM/blob/main/weights/efficient_sam_vits.pt.zip) | [Download](https://huggingface.co/mit-han-lab/efficientvit-sam/resolve/main/efficientvit_sam_xl1.pt) (save as `xl1.pt`)|
 
 create weights folder
 
@@ -33,7 +33,3 @@ download and put the downloaded file in the weights folder
 ```
 python app.py
 ```
-
-## Security
-
-Dependency upgrades and the known remaining issues are recorded in [docs/security-log.md](docs/security-log.md) ([繁體中文](docs/security-log.zh-TW.md)).
